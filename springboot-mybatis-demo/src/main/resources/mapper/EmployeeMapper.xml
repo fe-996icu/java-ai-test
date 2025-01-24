@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icu.mybatis.mapper.EmployeeMapper">
+    <!-- 根据员工id查询员工信息 -->
+    <select id="findByIdOfXml" resultType="com.icu.mybatis.pojo.Employee">
+        select * from employee where id = #{id}
+    </select>
+
+    <!-- 经过验证，parameterType 不指定也可以，和注解方式一样，传入的参数类型如果是对象，直接写对象的属性名 -->
+    <update id="updateEmployeeOfXml"  parameterType="com.icu.mybatis.pojo.Employee">
+        update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, dept_id = #{deptId},
+                            job_id = #{jobId}, join_date = #{joinDate}, update_date = #{updateDate}, status = #{status}
+            where id = #{id}
+    </update>
+</mapper>
