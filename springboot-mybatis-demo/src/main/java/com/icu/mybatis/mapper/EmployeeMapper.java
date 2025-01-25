@@ -27,4 +27,11 @@ public interface EmployeeMapper {
 
     @Select("select * from employee limit #{page}, #{pageSize}")
     public List<Employee> page(Integer page, Integer pageSize);
+
+    void updateEmployee(Employee employee);
+
+    void deleteEmployee(Integer id);
+
+    @Select("select count(*) from employee")
+    int total();
 }
