@@ -31,13 +31,13 @@
     </appender>
 
     <!-- 日志级别和输出配置 -->
-    <root level="ALL">
+    <root level="info">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </root>
 
     <!-- 单独配置某些包的日志级别 -->
-<!--    <logger name="com.example" level="debug" />-->
-<!--    <logger name="org.springframework" level="warn" />-->
+    <logger name="com.icu" level="all" />
+    <logger name="org.springframework" level="info" />
 
 </configuration>
