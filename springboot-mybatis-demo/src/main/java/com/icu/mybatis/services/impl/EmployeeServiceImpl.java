@@ -1,5 +1,6 @@
 package com.icu.mybatis.services.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.icu.mybatis.mapper.EmployeeMapper;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
@@ -15,9 +16,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> page(Integer page, Integer pageSize) {
         List<Employee> list = null;
-        int start = (page - 1) * pageSize;
-
-        list = employeeMapper.page(start, pageSize);
+        // 设置分页参数
+        PageHelper.startPage(page, pageSize);
+        // 调用mapper接口的分页查询方法（PageHelper拦截并处理的mybatis返回值是一个Page对象，继承了List接口）
+        list = employeeMapper.pageNew();
 
         return list;
     }

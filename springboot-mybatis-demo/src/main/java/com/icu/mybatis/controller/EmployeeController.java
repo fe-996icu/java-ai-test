@@ -1,5 +1,6 @@
 package com.icu.mybatis.controller;
 
+import com.github.pagehelper.Page;
 import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.CommonResult;
 import com.icu.mybatis.pojo.Employee;
@@ -28,12 +29,13 @@ public class EmployeeController {
                                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         log.info("page: {}, pageSize: {}", page, pageSize);
 
+        // PageHelper拦截并处理的mybatis返回值是一个Page对象，继承了List接口，所以可以强转成Page对象
         List<Employee> list = employeeService.page(page, pageSize);
-        int total = employeeService.total();
+        Page<Employee> pageEmp = (Page<Employee>) list;
 
         Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("rows", list);
+        map.put("total", pageEmp.getTotal()); // 获取总记录数
+        map.put("rows", pageEmp); // 获取分页数据
         log.info("返回结果：{}", map);
         return Result.ok(map);
     }
