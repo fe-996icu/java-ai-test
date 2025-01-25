@@ -1,11 +1,12 @@
 package com.icu.mybatis.services;
 
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 
 import java.util.List;
 
 public interface EmployeeService {
-    public List<Employee> page(Integer page, Integer pageSize);
+    List<Employee> page(EmployeeRequestPageVo param);
 
     List<Employee> findAll();
 

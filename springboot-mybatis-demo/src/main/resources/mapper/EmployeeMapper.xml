@@ -8,6 +8,38 @@
         select * from employee where id = #{id}
     </select>
 
+    <select id="pageNew" resultType="com.icu.mybatis.pojo.Employee" parameterType="com.icu.mybatis.vo.employee.EmployeeRequestPageVo">
+        select * from employee
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like concat('%', #{phone}, '%')
+            </if>
+            <!-- 这里判断 status=0 的时候也要追加查询条件，status为0!=''会返回false，所以需要使用toString方法然后在判断 -->
+            <!-- 或者使用 status!=null and (status!='' or status==0) -->
+            <!-- 或者只使用 status!=null 即可 -->
+            <if test="status!=null and (status!='' or status==0)">
+                and status = #{status}
+            </if>
+            <if test="deptId!=null">
+                and dept_id = #{deptId}
+            </if>
+            <if test="jobId!=null and jobId!=''">
+                and job_id = #{jobId}
+            </if>
+            <if test="beginBirthday!=null and endBirthday!=null">
+                and birthday between #{beginBirthday} and #{endBirthday}
+            </if>
+            <if test="beginJoinDate!=null and endJoinDate!=null">
+                and join_date between #{beginJoinDate} and #{endJoinDate}
+            </if>
+        </where>
+        <!-- 在xml中sql语句结果还是不能加分号，因为要使用PageHelper的分页功能 -->
+        order by update_date desc
+    </select>
+
     <!-- 经过验证，parameterType 不指定也可以，和注解方式一样，传入的参数类型如果是对象，直接写对象的属性名 -->
     <update id="updateEmployeeOfXml"  parameterType="com.icu.mybatis.pojo.Employee">
         update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, dept_id = #{deptId},

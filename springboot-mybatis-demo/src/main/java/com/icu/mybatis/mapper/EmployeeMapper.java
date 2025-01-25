@@ -1,8 +1,8 @@
 package com.icu.mybatis.mapper;
 
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
@@ -38,8 +38,8 @@ public interface EmployeeMapper {
      * 使用PageHelper实现的分页查询
      * @return
      */
-    @Select("select * from employee") // 使用PageHelper做分页，sql语句结尾不能有分号
-    List<Employee> pageNew();
+    // @Select("select * from employee") // 使用PageHelper做分页，sql语句结尾不能有分号
+    List<Employee> pageNew(EmployeeRequestPageVo param);
 
     void updateEmployee(Employee employee);
 

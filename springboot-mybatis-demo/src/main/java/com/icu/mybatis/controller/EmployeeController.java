@@ -2,13 +2,11 @@ package com.icu.mybatis.controller;
 
 import com.github.pagehelper.Page;
 import com.icu.mybatis.common.Result;
-import com.icu.mybatis.pojo.CommonResult;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
+import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.Null;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +23,13 @@ public class EmployeeController {
 
     @GetMapping()
     @ResponseBody
-    public Result<Map<String, Object>> page(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        log.info("page: {}, pageSize: {}", page, pageSize);
+    public Result<Map<String, Object>> page(EmployeeRequestPageVo param) {
+        log.info("分页接口查询参数：{}", param);
+        if(param.getPage()==null) param.setPage(1);
+        if(param.getPageSize()==null) param.setPageSize(10);
 
         // PageHelper拦截并处理的mybatis返回值是一个Page对象，继承了List接口，所以可以强转成Page对象
-        List<Employee> list = employeeService.page(page, pageSize);
+        List<Employee> list = employeeService.page(param);
         Page<Employee> pageEmp = (Page<Employee>) list;
 
         Map<String, Object> map = new HashMap<>();

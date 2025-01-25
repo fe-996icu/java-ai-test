@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.icu.mybatis.mapper.EmployeeMapper;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
+import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +15,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
     @Override
-    public List<Employee> page(Integer page, Integer pageSize) {
-        List<Employee> list = null;
+    public List<Employee> page(EmployeeRequestPageVo param) {
         // 设置分页参数
-        PageHelper.startPage(page, pageSize);
+        PageHelper.startPage(param.getPage(), param.getPageSize());
         // 调用mapper接口的分页查询方法（PageHelper拦截并处理的mybatis返回值是一个Page对象，继承了List接口）
-        list = employeeMapper.pageNew();
-
+        List<Employee> list = employeeMapper.pageNew(param);
         return list;
     }
 
