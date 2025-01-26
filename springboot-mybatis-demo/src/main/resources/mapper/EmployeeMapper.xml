@@ -56,4 +56,13 @@
     <delete id="deleteEmployee">
         delete from employee where id = #{id}
     </delete>
+
+    <select id="findByStatus" resultType="com.icu.mybatis.pojo.Employee">
+        select * from employee
+        where status in
+        <!-- statusList是Mapper接口的形参名 -->
+        <foreach collection="statusList" item="status" open="(" separator="," close=")">
+            #{status}
+        </foreach>
+    </select>
 </mapper>

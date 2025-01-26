@@ -19,4 +19,6 @@ public interface EmployeeService {
     void deleteEmployee(Integer id);
 
     int total();
+
+    List<Employee> findByStatus(int[] statusList);
 }

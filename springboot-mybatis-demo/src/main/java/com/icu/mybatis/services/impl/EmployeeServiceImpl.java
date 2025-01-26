@@ -52,4 +52,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int total() {
         return employeeMapper.total();
     }
+
+    public List<Employee> findByStatus(int[] statusList) {
+        return employeeMapper.findByStatus(statusList);
+    }
 }
