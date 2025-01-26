@@ -1,5 +1,6 @@
 package com.icu.mybatis.mapper;
 
+import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.apache.ibatis.annotations.*;
@@ -54,4 +55,18 @@ public interface EmployeeMapper {
     int total();
 
     List<Employee> findByStatus(int[] statusList);
+
+    /**
+     * 插入一条员工工作经历
+     * @param empExpr
+     */
+    // @Options(useGeneratedKeys = true, keyProperty = "id")
+    // @Insert("insert into emp_expr (emp_id, begin_date, end_date, company, job) values (#{empId}, #{beginDate}, #{endDate}, #{company}, #{job})")
+    void saveEmpExpr(EmpExpr empExpr);
+
+    /**
+     * 批量插入员工工作经历
+     * @param exprList
+     */
+    void saveEmpExprList(@Param("list") List<EmpExpr> exprList);
 }

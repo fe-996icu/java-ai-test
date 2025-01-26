@@ -2,7 +2,9 @@ package com.icu.mybatis.controller;
 
 import com.github.pagehelper.Page;
 import com.icu.mybatis.common.Result;
+import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.pojo.EmployeeSaveVo;
 import com.icu.mybatis.services.EmployeeService;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.FormatFlagsConversionMismatchException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +54,18 @@ public class EmployeeController {
         log.info("新增员工api：{}", employee);
         employeeService.saveEmployee(employee);
         log.info("该员工入库后的ID：{}", employee.getId());
+        return Result.ok(employee.getId());
+    }
+
+
+    @PostMapping("/emp_expr")
+    public Result<Integer> saveEmployeeAndExpr(@RequestBody EmployeeSaveVo employee){
+        log.info("新增员工和工作经历api：{}", employee);
+        employeeService.saveEmployeeAndExpr(employee);
+        log.info("该员工入库后的ID：{}", employee.getId());
+        for (EmpExpr expr : employee.getExprList()){
+            log.info("该员工工作经历入库后的ID：{}", expr.getId());
+        }
         return Result.ok(employee.getId());
     }
 

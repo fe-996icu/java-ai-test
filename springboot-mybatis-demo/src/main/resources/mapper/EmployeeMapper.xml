@@ -65,4 +65,17 @@
             #{status}
         </foreach>
     </select>
+
+    <insert id="saveEmpExpr" useGeneratedKeys="true" keyProperty="id">
+        insert into emp_expr (emp_id, begin_date, end_date, company, job)
+        values (#{empId}, #{beginDate}, #{endDate}, #{company}, #{job})
+    </insert>
+
+    <insert id="saveEmpExprList" useGeneratedKeys="true" keyProperty="id">
+        insert into emp_expr (emp_id, begin_date, end_date, company, job)
+        values
+        <foreach collection="list" item="expr" separator=",">
+            (#{expr.empId}, #{expr.beginDate}, #{expr.endDate}, #{expr.company}, #{expr.job})
+        </foreach>
+    </insert>
 </mapper>

@@ -1,6 +1,7 @@
 package com.icu.mybatis.services;
 
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.pojo.EmployeeSaveVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface EmployeeService {
     int total();
 
     List<Employee> findByStatus(int[] statusList);
+
+    void saveEmployeeAndExpr(EmployeeSaveVo employee);
 }

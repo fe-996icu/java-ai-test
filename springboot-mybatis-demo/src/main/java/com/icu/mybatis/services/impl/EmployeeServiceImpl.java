@@ -2,11 +2,14 @@ package com.icu.mybatis.services.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.icu.mybatis.mapper.EmployeeMapper;
+import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.pojo.EmployeeSaveVo;
 import com.icu.mybatis.services.EmployeeService;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -55,5 +58,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public List<Employee> findByStatus(int[] statusList) {
         return employeeMapper.findByStatus(statusList);
+    }
+
+    @Transactional(rollbackFor = { Exception.class }) // 事务管理-默认出现运行时异常 RuntimeException 才会回滚
+    @Override
+    public void saveEmployeeAndExpr(EmployeeSaveVo saveVo) {
+        Employee emp = new Employee(
+                saveVo.getId(),
+                saveVo.getName(),
+                saveVo.getGender(),
+                saveVo.getPhone(),
+                saveVo.getBirthday(),
+                saveVo.getDeptId(),
+                saveVo.getJobId(),
+                saveVo.getJoinDate(),
+                saveVo.getUpdateDate(),
+                saveVo.getStatus()
+        );
+        // 插入员工信息到数据库
+        employeeMapper.saveEmployee(emp);
+        saveVo.setId(emp.getId());
+
+        // double d = 1/0;
+
+        // 设置提交的工作经历关联的员工id
+        for (EmpExpr expr : saveVo.getExprList()) {
+            expr.setEmpId(emp.getId());
+            // employeeMapper.saveEmpExpr(expr);
+            // System.out.println("该员工工作经历入库后的ID：-----------------"+expr.getId());
+        }
+        // 批量插入工作经历
+        employeeMapper.saveEmpExprList(saveVo.getExprList());
+        saveVo.getExprList().forEach(expr -> {
+            System.out.println("该员工工作经历入库后的ID：-----------------"+expr.getId());
+        });
     }
 }
