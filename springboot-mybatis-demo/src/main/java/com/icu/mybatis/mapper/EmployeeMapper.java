@@ -2,7 +2,7 @@ package com.icu.mybatis.mapper;
 
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
-import com.icu.mybatis.vo.StatsEmpByJobVo;
+import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.apache.ibatis.annotations.*;
 

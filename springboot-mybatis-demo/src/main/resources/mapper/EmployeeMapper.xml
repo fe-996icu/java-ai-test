@@ -80,7 +80,7 @@
     </insert>
 
     <!-- 按照员工工作类型统计员工人数 -->
-    <select id="statsEmpOfJob" resultType="com.icu.mybatis.vo.StatsEmpByJobVo">
+    <select id="statsEmpOfJob" resultType="com.icu.mybatis.vo.employee.StatsEmpByJobVo">
         select j.id as jobId, j.name as jobName, count(0) as total from job j
             inner join employee e on e.job_id = j.id
             group by j.id

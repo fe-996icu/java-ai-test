@@ -5,7 +5,7 @@ import com.icu.mybatis.mapper.EmployeeMapper;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
-import com.icu.mybatis.vo.StatsEmpByJobVo;
+import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;

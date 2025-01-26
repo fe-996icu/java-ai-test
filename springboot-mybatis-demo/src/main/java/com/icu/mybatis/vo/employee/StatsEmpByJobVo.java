@@ -1,4 +1,4 @@
-package com.icu.mybatis.vo;
+package com.icu.mybatis.vo.employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
