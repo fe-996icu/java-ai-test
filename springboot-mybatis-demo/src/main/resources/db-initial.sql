@@ -81,3 +81,17 @@ insert into salary values ('9', '9', '1500');
 insert into salary values ('10', '10', '4000');
 insert into salary values ('11', '11', '2600');
 insert into salary values ('12', '12', '5300');
+
+drop table if EXISTS emp_expr;
+create table emp_expr (
+	id int signed primary key auto_increment comment '员工经历表id',
+	emp_id int signed not null comment '员工id',
+	begin_date date not null comment '开始时间',
+	end_date date not null comment '结束时间',
+	company varchar(50) not null comment '所在单位',
+    job varchar(50) not null comment '职位/岗位'
+) comment '员工经历表';
+
+insert into emp_expr values (1, 1, '1900-01-01', '2000-12-31', '花果山', '猴王');
+insert into emp_expr values (2, 1, '2000-01-01', '2003-12-31', '天宫', '弼马温');
+insert into emp_expr values (3, 1, '2005-01-01', '2020-12-31', '东土大唐', '大师兄');
