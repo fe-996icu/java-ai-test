@@ -47,10 +47,11 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public Result<Null> saveEmployee(@RequestBody Employee employee){
+    public Result<Integer> saveEmployee(@RequestBody Employee employee){
         log.info("新增员工api：{}", employee);
         employeeService.saveEmployee(employee);
-        return Result.ok(null);
+        log.info("该员工入库后的ID：{}", employee.getId());
+        return Result.ok(employee.getId());
     }
 
     @PutMapping()
@@ -65,6 +66,13 @@ public class EmployeeController {
         log.info("删除员工api：{}", id);
         employeeService.deleteEmployee(id);
         return Result.ok(null);
+    }
+
+    @GetMapping("/status")
+    public Result<List<Employee>> findByStatus(@RequestParam(required = true, value = "status") int[] statusList) {
+        log.info("根据状态查询员工api：{}", statusList);
+        List<Employee> list = employeeService.findByStatus(statusList);
+        return Result.ok(list);
     }
 
     @GetMapping("all")

@@ -16,6 +16,7 @@ public interface EmployeeMapper {
 
     // table (xxx, xxx, ...) 里写的是数据库字段
     // values (#{xxx}, #{xxx}, ...) 里写的是实体类属性
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     @Insert("insert into employee (name, gender, phone, birthday, dept_id, job_id, join_date, update_date, status) " +
             "values (#{name}, #{gender}, #{phone}, #{birthday}, #{deptId}, #{jobId}, #{joinDate}, #{updateDate}, #{status})")
     boolean saveEmployee(Employee employee);
@@ -51,4 +52,6 @@ public interface EmployeeMapper {
      */
     @Select("select count(*) from employee")
     int total();
+
+    List<Employee> findByStatus(int[] statusList);
 }
