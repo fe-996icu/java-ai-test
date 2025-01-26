@@ -5,6 +5,7 @@ import com.icu.mybatis.mapper.EmployeeMapper;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
+import com.icu.mybatis.vo.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         saveVo.getExprList().forEach(expr -> {
             System.out.println("该员工工作经历入库后的ID：-----------------"+expr.getId());
         });
+    }
+
+    @Override
+    public List<StatsEmpByJobVo> statsEmpOfJob() {
+        return employeeMapper.statsEmpOfJob();
     }
 }

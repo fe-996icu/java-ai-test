@@ -5,6 +5,7 @@ import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
+import com.icu.mybatis.vo.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
 import lombok.extern.slf4j.Slf4j;
@@ -95,6 +96,14 @@ public class EmployeeController {
         log.info("查询所有员工api");
         List<Employee> list = employeeService.findAll();
         return list;
+    }
+
+    @GetMapping("/job-stats")
+    public Result<List<StatsEmpByJobVo>> findJobStats(){
+        log.info("统计员工工作类型人数api");
+        List<StatsEmpByJobVo> list = employeeService.statsEmpOfJob();
+        log.info("统计结果：{}", list);
+        return Result.ok(list);
     }
 }
 

@@ -1,6 +1,7 @@
 package com.icu.mybatis.services;
 
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.vo.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,4 +26,6 @@ public interface EmployeeService {
     List<Employee> findByStatus(int[] statusList);
 
     void saveEmployeeAndExpr(EmployeeSaveVo employee);
+
+    List<StatsEmpByJobVo> statsEmpOfJob();
 }

@@ -78,4 +78,44 @@
             (#{expr.empId}, #{expr.beginDate}, #{expr.endDate}, #{expr.company}, #{expr.job})
         </foreach>
     </insert>
+
+    <!-- 按照员工工作类型统计员工人数 -->
+    <select id="statsEmpOfJob" resultType="com.icu.mybatis.vo.StatsEmpByJobVo">
+        select j.id as jobId, j.name as jobName, count(0) as total from job j
+            inner join employee e on e.job_id = j.id
+            group by j.id
+            order by j.id asc;
+    </select>
+
+    <!-- type是指定映射成哪个实体类 -->
+<!--    <resultMap id="empResultMap" type="com.icu.mybatis.pojo.Employee">-->
+<!--        &lt;!&ndash; 主键id使用id标签，其他使用result &ndash;&gt;-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="name" column="name"/>-->
+<!--        <result property="gender" column="gender"/>-->
+<!--        <result property="phone" column="phone"/>-->
+
+<!--        &lt;!&ndash; 封装exprList，ofType是集合中的每个元素映射成哪个实体类&ndash;&gt;-->
+<!--        <collection property="exprList" ofType="com.icu.mybatis.pojo.EmpExpr">-->
+<!--            <id property="id" column="expr_id"/>-->
+<!--            <result property="beginDate" column="expr_begin_date"/>-->
+<!--            <result property="endDate" column="expr_end_date"/>-->
+<!--            <result property="company" column="expr_company"/>-->
+<!--            <result property="job" column="expr_job"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
+
+    <!-- empResultMap是引用上面resultMap的id值 -->
+<!--    <select id="getById" resultMap="empResultMap">-->
+<!--        select-->
+<!--            e.*,-->
+<!--            ee.id as expr_id,-->
+<!--            ee.begin_date as expr_begin_date,-->
+<!--            ee.end_date as expr_end_date,-->
+<!--            ee.company as expr_company,-->
+<!--            ee.job as expr_job-->
+<!--        from employee e-->
+<!--        left join emp_expr ee on e.id = ee.emp_id-->
+<!--        where id = #{id}-->
+<!--    </select>-->
 </mapper>
