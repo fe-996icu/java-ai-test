@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.icu.mybatis.mapper.StudentMapper;
 import com.icu.mybatis.pojo.Student;
 import com.icu.mybatis.services.StudentService;
+import com.icu.mybatis.vo.student.StatsStudentOfClazz;
+import com.icu.mybatis.vo.student.StatsStudentOfEdu;
 import com.icu.mybatis.vo.student.StudentPageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +38,15 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> page(StudentPageVo param) {
         PageHelper.startPage(param.getPage(), param.getPageSize());
         return studentMapper.page(param);
+    }
+
+    @Override
+    public List<StatsStudentOfClazz> statsStudentOfClazz() {
+        return studentMapper.findGroupByClazz();
+    }
+
+    @Override
+    public List<StatsStudentOfEdu> statsStudentOfEdu() {
+        return studentMapper.findGroupByEdu();
     }
 }

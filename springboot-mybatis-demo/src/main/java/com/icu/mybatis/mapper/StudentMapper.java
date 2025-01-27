@@ -1,6 +1,8 @@
 package com.icu.mybatis.mapper;
 
 import com.icu.mybatis.pojo.Student;
+import com.icu.mybatis.vo.student.StatsStudentOfClazz;
+import com.icu.mybatis.vo.student.StatsStudentOfEdu;
 import com.icu.mybatis.vo.student.StudentPageVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +19,7 @@ public interface StudentMapper {
 
     List<Student> page(StudentPageVo param);
 
+    List<StatsStudentOfClazz> findGroupByClazz();
+
+    List<StatsStudentOfEdu> findGroupByEdu();
 }

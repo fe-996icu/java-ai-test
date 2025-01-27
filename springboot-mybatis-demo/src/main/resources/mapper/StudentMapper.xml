@@ -81,4 +81,25 @@
             </if>
         </where>
     </select>
+    <select id="findGroupByClazz" resultType="com.icu.mybatis.vo.student.StatsStudentOfClazz">
+        select c.id as clazzId,
+            c.name as clazzName,
+            count(0) as num
+        from student s
+            left join clazz c
+                on s.clazz_id = c.id
+        group by c.id
+        order by clazzId
+    </select>
+    <select id="findGroupByEdu" resultType="com.icu.mybatis.vo.student.StatsStudentOfEdu">
+        select
+            e.id as eduId,
+            e.name as eduName,
+            count(s.id) as num
+        from edu e
+            left join student s
+                on s.edu_id = e.id
+        group by s.edu_id, e.id
+        order by eduId;
+    </select>
 </mapper>

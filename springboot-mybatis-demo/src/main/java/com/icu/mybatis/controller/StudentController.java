@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.Student;
 import com.icu.mybatis.services.StudentService;
+import com.icu.mybatis.vo.student.StatsStudentOfClazz;
 import com.icu.mybatis.vo.student.StudentPageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class StudentController {
      * @return
      */
     @PostMapping
-    public Result<Integer> addStudent(@RequestBody Student student){
+    public Result<Integer> addStudent(@RequestBody Student student) {
         log.info("新增学生接口，请求参数：{}", student);
         studentService.addStudent(student);
         log.info("新增学生接口，返回结果：{}", student.getId());
@@ -54,7 +55,7 @@ public class StudentController {
      * @return
      */
     @GetMapping()
-    public Result<Map<String, Object>> page(StudentPageVo param){
+    public Result<Map<String, Object>> page(StudentPageVo param) {
         log.info("分页查询学生接口：{}", param);
         List<Student> list = studentService.page(param);
         Page<Student> page = (Page<Student>) list;
@@ -63,5 +64,21 @@ public class StudentController {
         map.put("total", page.getTotal());
         map.put("rows", page);
         return Result.ok(map);
+    }
+
+    @GetMapping({"/stats", "/stats/{type}"})
+    public Result<List> stats(@PathVariable(value = "type", required = false) String type) {
+        log.info("统计学生api：{}", type);
+
+        List list = null;
+        if ("clazz".equals(type)) {
+            list = studentService.statsStudentOfClazz();
+        } else if ("edu".equals(type)) {
+            list = studentService.statsStudentOfEdu();
+        } else {
+            list = studentService.statsStudentOfClazz();
+        }
+
+        return Result.ok(list);
     }
 }
