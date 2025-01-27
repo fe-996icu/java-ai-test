@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icu.mybatis.mapper.StudentMapper">
+    <!-- 新增学员 -->
+    <insert id="addStudent" parameterType="com.icu.mybatis.pojo.Student" useGeneratedKeys="true" keyProperty="id">
+        insert into student (
+            name,
+            no,
+            clazz_id,
+            gender,
+            phone,
+            edu_id
+        )
+        values (
+            #{name},
+            #{no},
+            #{clazzId},
+            #{gender},
+            #{phone},
+            #{eduId}
+        )
+    </insert>
+
+    <delete id="deleteStudent" parameterType="int">
+        delete from student where id = #{id}
+    </delete>
+
+    <update id="updateStudent" parameterType="com.icu.mybatis.pojo.Student">
+        update
+            student
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="no != null">
+                no = #{no},
+            </if>
+            <if test="clazzId != null">
+                clazz_id = #{clazzId},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="eduId != null">
+                edu_id = #{eduId},
+            </if>
+            last_update_time = default
+        </set>
+        where
+            id = #{id}
+    </update>
+
+    <select id="page" resultType="com.icu.mybatis.pojo.Student">
+        select
+            id, name, no, clazz_id, gender, phone, edu_id, last_update_time, create_time
+        from
+            student
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="no != null">
+                and no like concat('%', #{no}, '%')
+            </if>
+            <if test="clazzId != null">
+                and clazz_id = #{clazzId}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="phone != null">
+                and phone like concat('%', #{phone}, '%')
+            </if>
+            <if test="eduId != null">
+                and edu_id = #{eduId}
+            </if>
+        </where>
+    </select>
+</mapper>
