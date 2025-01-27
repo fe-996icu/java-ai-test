@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icu.mybatis.mapper.ClazzMapper">
+    <!-- 新增班级 -->
+    <insert id="addClazz" parameterType="com.icu.mybatis.pojo.Clazz" useGeneratedKeys="true" keyProperty="id">
+        insert into clazz (name, room, employee_id, begin_date, end_date, status, last_update_time, create_time)
+        values (#{name}, #{room}, #{employeeId}, #{beginDate}, #{endDate}, #{status}, default, default)
+    </insert>
+
+    <delete id="deleteClazz" parameterType="int">
+        delete from clazz where id = #{id}
+    </delete>
+
+    <update id="updateClazz" parameterType="com.icu.mybatis.pojo.Clazz">
+        update
+            clazz
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="room != null">
+                room = #{room},
+            </if>
+            <if test="employeeId != null">
+                employee_id = #{employeeId},
+            </if>
+            <if test="beginDate != null">
+                begin_date = #{beginDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            last_update_time = default
+        </set>
+        where
+            id = #{id}
+    </update>
+
+    <select id="findAll" resultType="com.icu.mybatis.pojo.Clazz">
+        select
+            id, name, room, employee_id, begin_date, end_date, status, last_update_time, create_time
+        from
+            clazz
+    </select>
+
+    <select id="page" resultType="com.icu.mybatis.pojo.Clazz">
+        select
+            id, name, room, employee_id, begin_date, end_date, status, last_update_time, create_time
+        from
+            clazz
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="room!=null">
+                and room like concat('%', #{room}, '%')
+            </if>
+            <if test="beginDate!=null">
+                and year(begin_date) = #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and year(end_date) = #{endDate}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="employeeId != null">
+                and employee_id = #{employeeId}
+            </if>
+        </where>
+    </select>
+</mapper>
