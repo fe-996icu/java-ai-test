@@ -6,7 +6,12 @@ public enum ResultCodeEnum {
     USERNAME_ERROR(501,"usernameError"),
     PASSWORD_ERROR(503,"passwordError"),
     NOT_LOGIN(504,"notLogin"),
-    USERNAME_USED(505,"userNameUsed")
+    USERNAME_USED(505,"userNameUsed"),
+    LOGIN_FAIL(400,"账号或密码错误"),
+    NOT_FOUND(404,"notFound"),
+    SERVER_ERROR(500,"serverError"),
+    NOT_AUTHORIZED(403,"访问受限"),
+    NOT_PERMISSION(401,"无权限访问"),
     ;
 
     private Integer code;

@@ -102,4 +102,14 @@
         group by s.edu_id, e.id
         order by eduId;
     </select>
+    <select id="login" resultType="com.icu.mybatis.vo.login.LoginResultVo">
+        select
+            username,
+            name
+        from
+            student
+        where
+            username = #{username}
+            and password = #{password}
+    </select>
 </mapper>

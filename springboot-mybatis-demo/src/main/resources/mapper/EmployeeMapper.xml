@@ -110,6 +110,16 @@
         order by
             year asc; <!--按年份排序（可选）-->
     </select>
+    <select id="login" resultType="com.icu.mybatis.vo.login.LoginResultVo" parameterType="com.icu.mybatis.vo.login.LoginParamVo">
+        select
+            username,
+            name
+        from
+            employee
+        where
+            username = #{username}
+            and password = #{password}
+    </select>
 
     <!-- type是指定映射成哪个实体类 -->
 <!--    <resultMap id="empResultMap" type="com.icu.mybatis.pojo.Employee">-->

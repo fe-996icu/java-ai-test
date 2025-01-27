@@ -6,6 +6,8 @@ import com.icu.mybatis.vo.employee.StatsEmpByBirthdayVo;
 import com.icu.mybatis.vo.employee.StatsEmpByGenderVo;
 import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
+import com.icu.mybatis.vo.login.LoginParamVo;
+import com.icu.mybatis.vo.login.LoginResultVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -78,4 +80,6 @@ public interface EmployeeMapper {
     List<StatsEmpByGenderVo> statsEmpOfGender();
 
     List<StatsEmpByBirthdayVo> statsEmpOfBirthday();
+
+    LoginResultVo login(LoginParamVo param);
 }

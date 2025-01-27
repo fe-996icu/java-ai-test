@@ -3,6 +3,7 @@ package com.icu.mybatis.exception;
 import com.icu.mybatis.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -26,5 +27,11 @@ public class GlobalExceptionHandler {
         String errMsg = message.substring(i);
         String[] arr = errMsg.split(" ");
         return Result.build(null, 500, arr[2] + "已存在");
+    }
+
+    @ExceptionHandler
+    public Result handleRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        log.error("全局异常处理器，拦截到异常 [RequestMethodNotSupportedException]", e);
+        return Result.build(null, 405, "请求方式不支持");
     }
 }

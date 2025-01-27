@@ -1,6 +1,8 @@
 package com.icu.mybatis.mapper;
 
 import com.icu.mybatis.pojo.Student;
+import com.icu.mybatis.vo.login.LoginParamVo;
+import com.icu.mybatis.vo.login.LoginResultVo;
 import com.icu.mybatis.vo.student.StatsStudentOfClazz;
 import com.icu.mybatis.vo.student.StatsStudentOfEdu;
 import com.icu.mybatis.vo.student.StudentPageVo;
@@ -22,4 +24,6 @@ public interface StudentMapper {
     List<StatsStudentOfClazz> findGroupByClazz();
 
     List<StatsStudentOfEdu> findGroupByEdu();
+
+    LoginResultVo login(LoginParamVo param);
 }
