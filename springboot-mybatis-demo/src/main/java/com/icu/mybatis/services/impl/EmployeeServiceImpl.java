@@ -68,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 saveVo.getGender(),
                 saveVo.getPhone(),
                 saveVo.getBirthday(),
-                saveVo.getDeptId(),
+                saveVo.getDepartmentId(),
                 saveVo.getJobId(),
                 saveVo.getJoinDate(),
                 saveVo.getUpdateDate(),
@@ -82,7 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // 设置提交的工作经历关联的员工id
         for (EmpExpr expr : saveVo.getExprList()) {
-            expr.setEmpId(emp.getId());
+            expr.setEmployeeId(emp.getId());
             // employeeMapper.saveEmpExpr(expr);
             // System.out.println("该员工工作经历入库后的ID：-----------------"+expr.getId());
         }

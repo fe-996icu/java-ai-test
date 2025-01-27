@@ -15,14 +15,14 @@ public interface EmployeeMapper {
     @Select("select * from employee")
     List<Employee> findAll();
 
-    @Select("select id, name, gender, phone, birthday, dept_id, job_id, join_date, update_date, status from employee where id = #{id}")
+    @Select("select id, name, gender, phone, birthday, department_id, job_id, join_date, update_date, status from employee where id = #{id}")
     Employee findById(Integer id);
 
     // table (xxx, xxx, ...) 里写的是数据库字段
     // values (#{xxx}, #{xxx}, ...) 里写的是实体类属性
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into employee (name, gender, phone, birthday, dept_id, job_id, join_date, update_date, status) " +
-            "values (#{name}, #{gender}, #{phone}, #{birthday}, #{deptId}, #{jobId}, #{joinDate}, #{updateDate}, #{status})")
+    @Insert("insert into employee (name, gender, phone, birthday, department_id, job_id, join_date, update_date, status) " +
+            "values (#{name}, #{gender}, #{phone}, #{birthday}, #{departmentId}, #{jobId}, #{joinDate}, #{updateDate}, #{status})")
     boolean saveEmployee(Employee employee);
 
     Employee findByIdOfXml(Integer id);
@@ -64,7 +64,7 @@ public interface EmployeeMapper {
      * @param empExpr
      */
     // @Options(useGeneratedKeys = true, keyProperty = "id")
-    // @Insert("insert into emp_expr (emp_id, begin_date, end_date, company, job) values (#{empId}, #{beginDate}, #{endDate}, #{company}, #{job})")
+    // @Insert("insert into emp_expr (employee_id, begin_date, end_date, company, job) values (#{employeeId}, #{beginDate}, #{endDate}, #{company}, #{job})")
     void saveEmpExpr(EmpExpr empExpr);
 
     /**

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +14,7 @@ public class EmployeeRequestPageVo {
     private Integer page;
     private Integer pageSize;
     private String name;
-    private Integer deptId;
+    private Integer departmentId;
     private Integer jobId;
     private Integer status;
     private String phone;

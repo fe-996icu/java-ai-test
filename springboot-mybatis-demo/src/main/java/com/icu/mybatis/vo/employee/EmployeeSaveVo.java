@@ -18,7 +18,7 @@ public class EmployeeSaveVo {
     private Byte gender;
     private String phone;
     private LocalDate birthday;
-    private Integer deptId;
+    private Integer departmentId;
     private Integer jobId;
     private LocalDate joinDate;
     private LocalDateTime updateDate;

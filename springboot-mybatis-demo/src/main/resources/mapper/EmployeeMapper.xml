@@ -23,8 +23,8 @@
             <if test="status!=null and (status!='' or status==0)">
                 and status = #{status}
             </if>
-            <if test="deptId!=null">
-                and dept_id = #{deptId}
+            <if test="departmentId!=null">
+                and department_id = #{departmentId}
             </if>
             <if test="jobId!=null and jobId!=''">
                 and job_id = #{jobId}
@@ -42,13 +42,13 @@
 
     <!-- 经过验证，parameterType 不指定也可以，和注解方式一样，传入的参数类型如果是对象，直接写对象的属性名 -->
     <update id="updateEmployeeOfXml"  parameterType="com.icu.mybatis.pojo.Employee">
-        update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, dept_id = #{deptId},
+        update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, department_id = #{departmentId},
         job_id = #{jobId}, join_date = #{joinDate}, update_date = #{updateDate}, status = #{status}
         where id = #{id}
     </update>
 
     <update id="updateEmployee"  parameterType="com.icu.mybatis.pojo.Employee">
-        update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, dept_id = #{deptId},
+        update employee set name = #{name}, gender = #{gender}, phone = #{phone}, birthday = #{birthday}, department_id = #{departmentId},
         job_id = #{jobId}, join_date = #{joinDate}, update_date = #{updateDate}, status = #{status}
         where id = #{id}
     </update>
@@ -67,15 +67,15 @@
     </select>
 
     <insert id="saveEmpExpr" useGeneratedKeys="true" keyProperty="id">
-        insert into emp_expr (emp_id, begin_date, end_date, company, job)
-        values (#{empId}, #{beginDate}, #{endDate}, #{company}, #{job})
+        insert into emp_expr (employee_id, begin_date, end_date, company, job)
+        values (#{employeeId}, #{beginDate}, #{endDate}, #{company}, #{job})
     </insert>
 
     <insert id="saveEmpExprList" useGeneratedKeys="true" keyProperty="id">
-        insert into emp_expr (emp_id, begin_date, end_date, company, job)
+        insert into emp_expr (employee_id, begin_date, end_date, company, job)
         values
         <foreach collection="list" item="expr" separator=",">
-            (#{expr.empId}, #{expr.beginDate}, #{expr.endDate}, #{expr.company}, #{expr.job})
+            (#{expr.employeeId}, #{expr.beginDate}, #{expr.endDate}, #{expr.company}, #{expr.job})
         </foreach>
     </insert>
 

@@ -28,7 +28,7 @@ class SpringbootMybatisDemoApplicationTests {
 		employee.setGender((byte) 0);
 		employee.setPhone("12345678901");
 		employee.setBirthday(LocalDate.parse("1990-01-01"));
-		employee.setDeptId(1);
+		employee.setDepartmentId(1);
 		employee.setJobId(1);
 		employee.setJoinDate(LocalDate.parse("2020-01-01"));
 		employee.setUpdateDate(LocalDateTime.parse("2020-01-01T00:00:00"));
