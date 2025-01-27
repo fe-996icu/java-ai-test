@@ -5,6 +5,7 @@ import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
+import com.icu.mybatis.vo.employee.StatsEmpByGenderVo;
 import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
@@ -97,11 +98,19 @@ public class EmployeeController {
         return list;
     }
 
-    @GetMapping("/job-stats")
-    public Result<List<StatsEmpByJobVo>> findJobStats(){
-        log.info("统计员工工作类型人数api");
-        List<StatsEmpByJobVo> list = employeeService.statsEmpOfJob();
-        log.info("统计结果：{}", list);
+    @GetMapping({"/stats", "/stats/" ,"/stats/{type}"}) // 同时设置多个匹配路径
+    public Result<List> statsByType(@PathVariable(value = "type", required = false) String type){
+        log.info("统计员工总数api：{}", type);
+        List list = null;
+        if("gender".equals(type)){
+            list = employeeService.statsEmpOfGender();
+        }else if("job".equals(type)) {
+            list = employeeService.statsEmpOfJob();
+        }else if("birthday".equals(type)){
+            list = employeeService.statsEmpOfBirthday();
+        }else{
+            list = employeeService.statsEmpOfGender();
+        }
         return Result.ok(list);
     }
 }

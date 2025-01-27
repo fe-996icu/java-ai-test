@@ -87,6 +87,30 @@
             order by j.id asc;
     </select>
 
+    <select id="statsEmpOfGender" resultType="com.icu.mybatis.vo.employee.StatsEmpByGenderVo">
+        <!-- case函数：流程控制函数-->
+        <!-- case 表达式 when value1 then result1 when value2 then result2 else defaultResult end-->
+        <!-- case when 条件表达式1 then result1 when 条件表达式2 then result2 else defaultResult end-->
+        select (case e.gender
+                when 1 then '男'
+                when 0 then '女'
+                else '未知' end) as gender, count(0) as num
+        from employee e group by e.gender;
+    </select>
+    <select id="statsEmpOfBirthday" resultType="com.icu.mybatis.vo.employee.StatsEmpByBirthdayVo">
+        select
+            <!-- 提取年份 -->
+            year(birthday) as year,
+            <!-- 统计员工数量 -->
+            count(*) as num
+        from
+            employee
+        group by
+            year(birthday) <!--按年份分组-->
+        order by
+            year asc; <!--按年份排序（可选）-->
+    </select>
+
     <!-- type是指定映射成哪个实体类 -->
 <!--    <resultMap id="empResultMap" type="com.icu.mybatis.pojo.Employee">-->
 <!--        &lt;!&ndash; 主键id使用id标签，其他使用result &ndash;&gt;-->

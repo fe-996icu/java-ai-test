@@ -2,6 +2,8 @@ package com.icu.mybatis.mapper;
 
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
+import com.icu.mybatis.vo.employee.StatsEmpByBirthdayVo;
+import com.icu.mybatis.vo.employee.StatsEmpByGenderVo;
 import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import org.apache.ibatis.annotations.*;
@@ -72,4 +74,8 @@ public interface EmployeeMapper {
     void saveEmpExprList(@Param("list") List<EmpExpr> exprList);
 
     List<StatsEmpByJobVo> statsEmpOfJob();
+
+    List<StatsEmpByGenderVo> statsEmpOfGender();
+
+    List<StatsEmpByBirthdayVo> statsEmpOfBirthday();
 }

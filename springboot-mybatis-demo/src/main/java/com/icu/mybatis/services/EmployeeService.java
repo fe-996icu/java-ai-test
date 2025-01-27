@@ -1,9 +1,7 @@
 package com.icu.mybatis.services;
 
 import com.icu.mybatis.pojo.Employee;
-import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
-import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
-import com.icu.mybatis.vo.employee.EmployeeSaveVo;
+import com.icu.mybatis.vo.employee.*;
 
 import java.util.List;
 
@@ -27,4 +25,8 @@ public interface EmployeeService {
     void saveEmployeeAndExpr(EmployeeSaveVo employee);
 
     List<StatsEmpByJobVo> statsEmpOfJob();
+
+    List<StatsEmpByGenderVo> statsEmpOfGender();
+
+    List<StatsEmpByBirthdayVo> statsEmpOfBirthday();
 }

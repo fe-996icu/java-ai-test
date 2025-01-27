@@ -5,9 +5,7 @@ import com.icu.mybatis.mapper.EmployeeMapper;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
-import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
-import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
-import com.icu.mybatis.vo.employee.EmployeeSaveVo;
+import com.icu.mybatis.vo.employee.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,5 +96,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<StatsEmpByJobVo> statsEmpOfJob() {
         return employeeMapper.statsEmpOfJob();
+    }
+
+    @Override
+    public List<StatsEmpByGenderVo> statsEmpOfGender() {
+        return employeeMapper.statsEmpOfGender();
+    }
+
+    @Override
+    public List<StatsEmpByBirthdayVo> statsEmpOfBirthday() {
+        return employeeMapper.statsEmpOfBirthday();
     }
 }
