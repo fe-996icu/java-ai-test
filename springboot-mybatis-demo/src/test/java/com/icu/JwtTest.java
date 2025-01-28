@@ -46,13 +46,18 @@ public class JwtTest {
         String jwt = "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImV4cCI6MTczNzk4MDkyNX0.n2Qm3tFRMVTm_FOcJ_Xmnw7cyvyWm16bAaquKiu5jHI8ZbtE56MvPc1i4iQhcmIRuB-d4FW3-ZCr3GTcYsxIeg"; // 替换为实际的 JWT
 
         // 3. 解析 JWT
-        Claims claims = Jwts.parser()
-                .verifyWith(key) // 使用密钥验证签名
-                .build()
-                .parseSignedClaims(jwt) // 解析 JWT
-                .getPayload(); // 获取 Claims
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(key) // 使用密钥验证签名
+                    .build()
+                    .parseSignedClaims(jwt) // 解析 JWT
+                    .getPayload(); // 获取 Claims
 
-        // 4. 输出解析结果
-        System.out.println("解析后的 JWT 数据：\n" + claims);
+            // 4. 输出解析结果
+            System.out.println("解析后的 JWT 数据：\n" + claims);
+        }catch (Exception e){
+            System.out.println("解析 JWT 失败：" + e.getMessage());
+        }
+
     }
 }
