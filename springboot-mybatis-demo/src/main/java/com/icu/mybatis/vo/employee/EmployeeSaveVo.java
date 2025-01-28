@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 public class EmployeeSaveVo {
     private Integer id;
+    private String username;
+    private String password;
     private String name;
     private Byte gender;
     private String phone;

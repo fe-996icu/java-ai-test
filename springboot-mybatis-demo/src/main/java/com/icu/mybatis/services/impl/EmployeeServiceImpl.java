@@ -64,6 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void saveEmployeeAndExpr(EmployeeSaveVo saveVo) {
         Employee emp = new Employee(
                 saveVo.getId(),
+                saveVo.getUsername(),
+                saveVo.getPassword(),
                 saveVo.getName(),
                 saveVo.getGender(),
                 saveVo.getPhone(),

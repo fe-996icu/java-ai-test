@@ -23,6 +23,8 @@ public class EmpExprTest {
                 "job"));
         EmployeeSaveVo vo = new EmployeeSaveVo(
                 1,
+                "username",
+                "password",
                 "name",
                 (byte) 1,
                 "phone",

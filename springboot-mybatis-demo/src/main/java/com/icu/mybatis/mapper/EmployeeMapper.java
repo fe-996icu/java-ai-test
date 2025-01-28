@@ -17,14 +17,14 @@ public interface EmployeeMapper {
     @Select("select * from employee")
     List<Employee> findAll();
 
-    @Select("select id, name, gender, phone, birthday, department_id, job_id, join_date, update_date, status from employee where id = #{id}")
+    @Select("select id, username, name, gender, phone, birthday, department_id, job_id, join_date, update_date, status from employee where id = #{id}")
     Employee findById(Integer id);
 
     // table (xxx, xxx, ...) 里写的是数据库字段
     // values (#{xxx}, #{xxx}, ...) 里写的是实体类属性
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into employee (name, gender, phone, birthday, department_id, job_id, join_date, update_date, status) " +
-            "values (#{name}, #{gender}, #{phone}, #{birthday}, #{departmentId}, #{jobId}, #{joinDate}, #{updateDate}, #{status})")
+    @Insert("insert into employee (username, password, name, gender, phone, birthday, department_id, job_id, join_date, update_date, status) " +
+            "values (#{username}, #{password}, #{name}, #{gender}, #{phone}, #{birthday}, #{departmentId}, #{jobId}, #{joinDate}, #{updateDate}, #{status})")
     boolean saveEmployee(Employee employee);
 
     Employee findByIdOfXml(Integer id);

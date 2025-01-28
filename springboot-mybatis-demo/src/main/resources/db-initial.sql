@@ -40,6 +40,8 @@ insert into job values ('6', '市场经理');
 drop table if EXISTS employee;
 create table if not exists employee (
 	id int primary key auto_increment comment '员工id',
+    username varchar(20) not null unique comment '账号',
+    password varchar(20) not null default '123456' comment '密码',
 	name varchar(20) not null comment '员工姓名',
 	gender tinyint(1) signed default null comment '性别',
     phone char(11) null comment '手机号',
@@ -51,18 +53,18 @@ create table if not exists employee (
     status tinyint signed not null default 0 comment '员工状态：0-未启用、1-正常、2-离职'
 ) comment '员工信息表';
 
-insert into employee values (1, '孙悟空', 0, '13811111111', '1998-10-01', 3, 1, '1998-10-01', now(), 1);
-insert into employee values (2, '猪八戒', 1, '13822222222', '2000-01-01', 3, 1, '2000-01-01', now(), 1);
-insert into employee values (3, '沙和尚', 1, '13833333333', '2002-12-11', 2, 2, '2002-12-11', now(), 1);
-insert into employee values (4, '唐僧', 1, '13844444444', '1998-01-01', 2, 2, '1998-01-01', now(), 1);
-insert into employee values (5, '观世音菩萨', 0, '13855555555', '1890-01-01', 2, 3, '1890-01-01', now(), 2);
-insert into employee values (6, '菩提老祖', 0, '13866666666', '1898-10-01', 1, 3, '1898-10-01', now(), 2);
-insert into employee values (7, '玉皇大帝', 1, '13877777777', '1958-10-01', 1, 4, '1958-10-01', now(), 2);
-insert into employee values (8, '王母娘娘', 0, '13888888888', '1958-10-10', 2, 5, '1958-10-10', now(), 2);
-insert into employee values (9, '太上老君', 1, '13899999999', '1988-01-01', 3, 5, '1988-01-01', now(), 2);
-insert into employee values (10, '如来佛祖', 0, '13800000000', '1598-01-01', 3, 6, '1598-01-01', now(), 2);
-insert into employee values (11, '黑熊精', 1, null, '2000-10-11', 2, 6, null, now(), 0);
-insert into employee values (12, '黄袍怪', 1, null, '1985-10-21', 1, 6, null, now(), 0);
+insert into employee values (1, 'sunwukong', '123456', '孙悟空', 0, '13811111111', '1998-10-01', 3, 1, '1998-10-01', now(), 1);
+insert into employee values (2, 'zhubajie', '123456', '猪八戒', 1, '13822222222', '2000-01-01', 3, 1, '2000-01-01', now(), 1);
+insert into employee values (3, 'shaheshang', '123456', '沙和尚', 1, '13833333333', '2002-12-11', 2, 2, '2002-12-11', now(), 1);
+insert into employee values (4, 'tangseng', '123456', '唐僧', 1, '13844444444', '1998-01-01', 2, 2, '1998-01-01', now(), 1);
+insert into employee values (5, 'guanshiyin', '123456', '观世音菩萨', 0, '13855555555', '1890-01-01', 2, 3, '1890-01-01', now(), 2);
+insert into employee values (6, 'puti', '123456', '菩提老祖', 0, '13866666666', '1898-10-01', 1, 3, '1898-10-01', now(), 2);
+insert into employee values (7, 'yudi', '123456', '玉皇大帝', 1, '13877777777', '1958-10-01', 1, 4, '1958-10-01', now(), 2);
+insert into employee values (8, 'wangmu', '123456', '王母娘娘', 0, '13888888888', '1958-10-10', 2, 5, '1958-10-10', now(), 2);
+insert into employee values (9, 'laojun', '123456', '太上老君', 1, '13899999999', '1988-01-01', 3, 5, '1988-01-01', now(), 2);
+insert into employee values (10, 'rulai', '123456', '如来佛祖', 0, '13800000000', '1598-01-01', 3, 6, '1598-01-01', now(), 2);
+insert into employee values (11, 'heixiongjing', '123456', '黑熊精', 1, null, '2000-10-11', 2, 6, null, now(), 0);
+insert into employee values (12, 'huangpaoguai', '123456', '黄袍怪', 1, null, '1985-10-21', 1, 6, null, now(), 0);
 
 
 -- 员工工资表
@@ -144,6 +146,8 @@ insert into edu values (8, '博士', default, default);
 drop table if EXISTS student;
 create table student (
 	id int signed primary key auto_increment comment '学生id',
+    username varchar(20) not null unique comment '账号',
+    password varchar(20) not null default '123456' comment '密码',
     name varchar(50) not null comment '学生姓名',
     no varchar(10) not null comment '学生编号',
 	clazz_id int signed null comment '所属班级-关联班级表',
@@ -154,6 +158,6 @@ create table student (
     create_time datetime null default now() comment '创建时间'
 ) comment '班级表';
 
-insert into student values(1, '张三', 'A0001', 1, 1, '13111111111', 8, default, default);
-insert into student values(2, '李四', 'A0002', 2, 0, '13111111112', 1, default, default);
-insert into student values(3, '王五', 'A0003', 3, 0, '13111111113', 5, default, default);
+insert into student values(1, 'zhangsan', '123456', '张三', 'A0001', 1, 1, '13111111111', 8, default, default);
+insert into student values(2, 'lisi', '123456', '李四', 'A0002', 2, 0, '13111111112', 1, default, default);
+insert into student values(3, 'wangwu', '123456', '王五', 'A0003', 3, 0, '13111111113', 5, default, default);

@@ -25,6 +25,8 @@ class SpringbootMybatisDemoApplicationTests {
 	public void saveEmployee() {
 		Employee employee = new Employee();
 		employee.setName("李时珍");
+		employee.setUsername("lishizhen");
+		employee.setPassword("123456");
 		employee.setGender((byte) 0);
 		employee.setPhone("12345678901");
 		employee.setBirthday(LocalDate.parse("1990-01-01"));

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Employee {
     private Integer id;
+    private String username;
+    private String password;
     private String name;
     private Byte gender;
     private String phone;

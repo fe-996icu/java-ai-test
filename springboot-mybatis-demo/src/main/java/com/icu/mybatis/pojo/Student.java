@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Student {
     private Integer id;
+    private String username;
+    private String password;
     private String name;
     private String no;
     private Integer clazzId;
