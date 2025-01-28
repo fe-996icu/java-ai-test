@@ -8,17 +8,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Slf4j
 // 拦截所有请求
-@WebFilter(urlPatterns = "/*")
-@Service // 注册Spring Bean对象，方便依赖注入
+// @WebFilter(urlPatterns = "/*")
+// @Component // 注册Spring Bean对象，方便依赖注入，使用Spring注解，就算不在引导类增加 @ServletComponentScan 注解也会被识别为 Filter 组件
 public class TokenFilter implements Filter { // 实现 Servlet 包下的 Filter 接口
-    @Autowired
-    private TokenHelper tokenHelper;
+    // @Autowired
+    // private TokenHelper tokenHelper;
+    private final TokenHelper tokenHelper = new TokenHelper();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
