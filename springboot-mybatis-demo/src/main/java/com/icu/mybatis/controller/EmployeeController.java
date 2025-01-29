@@ -1,12 +1,11 @@
 package com.icu.mybatis.controller;
 
 import com.github.pagehelper.Page;
+import com.icu.mybatis.annotations.LogAnnotation;
 import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
 import com.icu.mybatis.services.EmployeeService;
-import com.icu.mybatis.vo.employee.StatsEmpByGenderVo;
-import com.icu.mybatis.vo.employee.StatsEmpByJobVo;
 import com.icu.mybatis.vo.employee.EmployeeRequestPageVo;
 import com.icu.mybatis.vo.employee.EmployeeSaveVo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +24,8 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @LogAnnotation
     @GetMapping()
-    @ResponseBody
     public Result<Map<String, Object>> page(EmployeeRequestPageVo param) {
         log.info("分页接口查询参数：{}", param);
         if(param.getPage()==null) param.setPage(1);

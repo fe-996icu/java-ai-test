@@ -24,4 +24,19 @@ public class RecordTimeAspect {
         log.info("方法[{}] 运行时间：{}ms", pjp.getSignature().toString(), (endTime - startTime));
         return result;
     }
+
+    // 使用 @annotation 切入点表达式
+    // 匹配标记有 @LogAnnotation 注解的连接点
+    @Around("@annotation(com.icu.mybatis.annotations.LogAnnotation)")
+    public Object recordTimeByAnnotation(ProceedingJoinPoint pjp) throws Throwable {
+        // 获取系统当前运行时间
+        long startTime = System.currentTimeMillis();
+
+        // 执行原始方式，并获取返回值
+        Object result = pjp.proceed();
+
+        long endTime = System.currentTimeMillis();
+        log.info("方法[{}] 运行时间：{}ms [基于 @annotation 注解匹配]", pjp.getSignature().toString(), (endTime - startTime));
+        return result;
+    }
 }
