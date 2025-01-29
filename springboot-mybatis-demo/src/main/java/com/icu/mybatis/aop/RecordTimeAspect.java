@@ -27,7 +27,7 @@ public class RecordTimeAspect {
 
     // 使用 @annotation 切入点表达式
     // 匹配标记有 @LogAnnotation 注解的连接点
-    @Around("@annotation(com.icu.mybatis.annotations.LogAnnotation)")
+    @Around("@annotation(com.icu.mybatis.annotation.LogAnnotation)")
     public Object recordTimeByAnnotation(ProceedingJoinPoint pjp) throws Throwable {
         // 获取系统当前运行时间
         long startTime = System.currentTimeMillis();

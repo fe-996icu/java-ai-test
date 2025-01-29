@@ -1,7 +1,7 @@
 package com.icu.mybatis.controller;
 
 import com.github.pagehelper.Page;
-import com.icu.mybatis.annotations.LogAnnotation;
+import com.icu.mybatis.annotation.LogAnnotation;
 import com.icu.mybatis.common.Result;
 import com.icu.mybatis.pojo.EmpExpr;
 import com.icu.mybatis.pojo.Employee;
