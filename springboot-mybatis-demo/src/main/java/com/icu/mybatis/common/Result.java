@@ -1,10 +1,13 @@
 package com.icu.mybatis.common;
 
 
+import lombok.ToString;
+
 /**
  * 全局统一响应的JSON格式处理类
  *
  */
+@ToString
 public class Result<T> {
     // 返回码
     private Integer code;
