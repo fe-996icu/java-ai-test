@@ -161,3 +161,22 @@ create table student (
 insert into student values(1, 'zhangsan', '123456', '张三', 'A0001', 1, 1, '13111111111', 8, default, default);
 insert into student values(2, 'lisi', '123456', '李四', 'A0002', 2, 0, '13111111112', 1, default, default);
 insert into student values(3, 'wangwu', '123456', '王五', 'A0003', 3, 0, '13111111113', 5, default, default);
+
+
+-- 操作日志表
+drop table if EXISTS operate_log;
+create table operate_log (
+	id int signed primary key auto_increment comment '日志id',
+    operate_id int not null comment '操作人id，可以是员工、可以是学生',
+    operate_time datetime not null default now() comment '操作时间',
+    class_name varchar(200) not null comment '执行方法的全类名',
+    method_name varchar(50) not null comment '执行方法名',
+	method_args text null comment '方法运行时参数',
+	method_result text null comment '方法运行返回值',
+    cost_time int signed not null comment '方法运行时长，单位：毫秒',
+    operate_type tinyint signed not null comment '操作类型：1=添加、2=删除、3=修改、4=查询'
+) comment '操作日志表';
+
+insert into operate_log values(1, 1, now(), 'com.icu.mybatis.controller.EmployeeController', 'insert', '{}', null, 10, 1);
+insert into operate_log values(2, 1, now(), 'com.icu.mybatis.controller.EmployeeController', 'delete', '{}', null, 10, 2);
+insert into operate_log values(3, 1, now(), 'com.icu.mybatis.controller.EmployeeController', 'update', '{}', null, 10, 3);

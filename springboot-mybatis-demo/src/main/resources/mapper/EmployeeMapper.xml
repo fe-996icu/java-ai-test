@@ -112,6 +112,7 @@
     </select>
     <select id="login" resultType="com.icu.mybatis.vo.login.LoginResultVo" parameterType="com.icu.mybatis.vo.login.LoginParamVo">
         select
+            id,
             username,
             name
         from
