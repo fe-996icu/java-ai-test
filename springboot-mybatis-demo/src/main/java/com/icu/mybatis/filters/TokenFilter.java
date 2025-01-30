@@ -1,6 +1,7 @@
 package com.icu.mybatis.filters;
 
 import com.icu.mybatis.utils.TokenHelper;
+import com.icu.mybatis.vo.login.LoginResultVo;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -40,10 +41,10 @@ public class TokenFilter implements Filter { // 实现 Servlet 包下的 Filter 
 
         try {
             // 解析token
-            Claims claims = tokenHelper.parseToken(token);
+            LoginResultVo loginResultVo = tokenHelper.parseToken(token);
             // 解析成功，放行
-            if(claims != null){
-                log.info("token有效：{}", claims);
+            if(loginResultVo != null){
+                log.info("token有效：{}", loginResultVo);
                 filterChain.doFilter(request, response);
                 return;
             }

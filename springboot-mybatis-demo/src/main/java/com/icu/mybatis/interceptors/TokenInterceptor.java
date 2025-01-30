@@ -1,7 +1,9 @@
 package com.icu.mybatis.interceptors;
 
 import com.icu.mybatis.exception.TokenInvalidException;
+import com.icu.mybatis.utils.ThreadLocalHelper;
 import com.icu.mybatis.utils.TokenHelper;
+import com.icu.mybatis.vo.login.LoginResultVo;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,8 +33,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
 
         try {
-            Claims claims = tokenHelper.parseToken(token);
-            log.info("token有效-[{}]： {}", req.getRequestURI(), claims);
+            LoginResultVo loginResultVo = tokenHelper.parseToken(token);
+            ThreadLocalHelper.set(loginResultVo);
+            log.info("token有效-[{}]： {}", req.getRequestURI(), loginResultVo);
             return true;
         }catch (Exception ex){
             log.info("token无效");
@@ -44,6 +47,8 @@ public class TokenInterceptor implements HandlerInterceptor {
     // 目标资源方法执行后执行
     public void postHandle(HttpServletRequest req, HttpServletResponse resp, Object handler, ModelAndView modelAndView) throws Exception {
         log.info("TokenInterceptor拦截器执行-[postHandle]：{}", req.getRequestURI());
+        // 请求结束，清除ThreadLocal
+        ThreadLocalHelper.remove();
     }
 
     @Override
