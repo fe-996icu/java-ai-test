@@ -1,5 +1,6 @@
 package com.icu.mybatis.utils;
 
+import com.icu.mybatis.vo.login.LoginResultVo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -17,9 +19,16 @@ public class TokenHelper {
     @Value("${com.icu.token.expire-time}")
     private Long EXPIRE_TIME;
 
-    public String generateToken(Map<String, Object> claims) {
+    public String generateToken(LoginResultVo loginResultVo) {
         // 1. 定义密钥
         SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
+
+        // 2. 设置负载（Claims）自定义数据
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", loginResultVo.getId());
+        claims.put("username", loginResultVo.getUsername());
+        claims.put("name", loginResultVo.getName());
+
         // 3. 设置过期时间
         Date expiration = new Date(System.currentTimeMillis() + 1000 * 60 * EXPIRE_TIME); // 设置过期时间
 
@@ -33,7 +42,7 @@ public class TokenHelper {
         return token;
     }
 
-    public Claims parseToken(String token) {
+    public LoginResultVo parseToken(String token) {
         // 1. 定义密钥（必须与生成 JWT 时使用的密钥一致）
         SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
@@ -44,6 +53,11 @@ public class TokenHelper {
                 .parseSignedClaims(token) // 解析 JWT
                 .getPayload(); // 获取 Claims
 
-        return claims;
+        LoginResultVo loginResultVo = new LoginResultVo();
+        loginResultVo.setId(Integer.parseInt(claims.get("id").toString()));
+        loginResultVo.setUsername(claims.get("username").toString());
+        loginResultVo.setName(claims.get("name").toString());
+
+        return loginResultVo;
     }
 }

@@ -33,10 +33,7 @@ public class LoginController {
             return Result.build(null, ResultCodeEnum.LOGIN_FAIL);
         }
 
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", result.getUsername());
-        claims.put("name", result.getName());
-        String token = tokenHelper.generateToken(claims);
+        String token = tokenHelper.generateToken(result);
         result.setToken(token);
         log.info("登录成功：{}", result);
         return Result.ok(result);
