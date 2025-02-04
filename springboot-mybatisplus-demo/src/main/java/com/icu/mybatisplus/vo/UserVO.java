@@ -1,9 +1,9 @@
-package com.icu.mybatisplus.pojo;
+package com.icu.mybatisplus.vo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,17 +14,26 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    @TableId(type = IdType.AUTO)
+@ApiModel(description = "用户信息")
+public class UserVO {
+    @ApiModelProperty("id")
     private Integer id;
+    @ApiModelProperty("username")
     private String username;
-    private String password;
+    @ApiModelProperty("name")
     private String name;
+    @ApiModelProperty("balance")
     private Double balance;
+    @ApiModelProperty("birthday")
     private LocalDate birthday;
+    @ApiModelProperty("gender")
     private Integer gender;
+    @ApiModelProperty("status")
     private Integer status;
+    @ApiModelProperty("createTime")
     private LocalDateTime createTime;
+    @ApiModelProperty("lastUpdateTime")
     private LocalDateTime lastUpdateTime;
+    @ApiModelProperty("deleteFlag")
     private Integer deleteFlag;
 }

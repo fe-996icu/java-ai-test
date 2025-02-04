@@ -12,4 +12,13 @@
         ${ew.customSqlSegment}
     </update>
 
+    <update id="deductBalanceById">
+        update
+            user
+        set
+            balance = balance - #{money}
+        where
+            id = #{id}
+    </update>
+
 </mapper>
