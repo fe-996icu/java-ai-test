@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.icu.mybatisplus.common.Result;
 import com.icu.mybatisplus.dto.UserFormDTO;
 import com.icu.mybatisplus.pojo.User;
+import com.icu.mybatisplus.query.UserListQuery;
 import com.icu.mybatisplus.service.UserService;
 import com.icu.mybatisplus.vo.UserVO;
 import io.swagger.annotations.ApiOperation;
@@ -107,5 +108,12 @@ public class UserController {
         log.info("修改用户余额[{}]：{}", id, result);
 
         return Result.ok(result);
+    }
+
+    // 复杂查询
+    @GetMapping("/list")
+    Result<List<UserVO>> findList(UserListQuery userQuery){
+        List<User> list = userService.findList(userQuery);
+        return Result.ok(BeanUtil.copyToList(list, UserVO.class));
     }
 }
