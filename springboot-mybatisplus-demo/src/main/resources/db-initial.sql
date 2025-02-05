@@ -15,15 +15,16 @@ create table if not exists user (
     balance double signed not null default 0 comment '存款',
     birthday date null comment '生日',
     gender tinyint signed null comment '性别：1-男，0-女',
+    info text null comment 'json格式数据',
     status tinyint signed not null default 0 comment '状态：0-禁用，1-启用',
     create_time datetime not null default now() comment '创建时间',
     last_update_time datetime not null default now() comment '最后修改时间',
     delete_flag tinyint not null default 0 comment '逻辑删除：1-删除、0-未删除'
 ) comment '用户表';
 
-insert into user values (1, 'zhangsan', default, '张三', 5000, '1999-10-10', 1, 1, default, default, default);
-insert into user values (2, 'lisi', default, '李四', 3500, '1989-10-10', 0, 1, default, default, default);
-insert into user values (3, 'wangwu', default, '王五', 8000, '1979-10-10', 1, 1, default, default, default);
+insert into user values (1, 'zhangsan', default, '张三', 5000, '1999-10-10', 1, '{"age":20,"intro":"佛系少年"}', 1, default, default, default);
+insert into user values (2, 'lisi', default, '李四', 3500, '1989-10-10', 0, null, 1, default, default, default);
+insert into user values (3, 'wangwu', default, '王五', 8000, '1979-10-10', 1, null, 1, default, default, default);
 
 select * from user;
 
