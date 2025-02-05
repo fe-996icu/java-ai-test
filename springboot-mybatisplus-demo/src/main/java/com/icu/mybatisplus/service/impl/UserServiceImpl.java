@@ -3,6 +3,7 @@ package com.icu.mybatisplus.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
+import com.icu.mybatisplus.enums.UserStatus;
 import com.icu.mybatisplus.mapper.UserMapper;
 import com.icu.mybatisplus.pojo.Address;
 import com.icu.mybatisplus.pojo.User;
@@ -29,7 +30,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = this.getById(id);
 
         // 验证用户是否存在，用户状态是否正常
-        if (user == null || user.getStatus() != 1) {
+        if (user == null || user.getStatus() != UserStatus.NORMAL) {
             log.error("用户不存在或状态不正常");
             return false;
         }
@@ -90,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = this.getById(userId);
 
         // 验证用户是否存在，用户状态是否正常
-        if (user == null || user.getStatus() != 1) {
+        if (user == null || user.getStatus() != UserStatus.NORMAL) {
             log.error("用户不存在或状态不正常");
             return null;
         }

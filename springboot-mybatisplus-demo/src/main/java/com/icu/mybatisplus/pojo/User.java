@@ -1,6 +1,7 @@
 package com.icu.mybatisplus.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.icu.mybatisplus.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class User {
     private Double balance;
     private LocalDate birthday;
     private Integer gender;
-    private Integer status;
+    private UserStatus status;
     private LocalDateTime createTime;
     private LocalDateTime lastUpdateTime;
     @TableLogic(value = "0",delval = "1") // 标记逻辑删除字段

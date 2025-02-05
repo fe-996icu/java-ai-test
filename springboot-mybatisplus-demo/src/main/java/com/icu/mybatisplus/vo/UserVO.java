@@ -2,6 +2,7 @@ package com.icu.mybatisplus.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.icu.mybatisplus.enums.UserStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class UserVO {
     @ApiModelProperty("gender")
     private Integer gender;
     @ApiModelProperty("status")
-    private Integer status;
+    private UserStatus status;
     @ApiModelProperty("createTime")
     private LocalDateTime createTime;
     @ApiModelProperty("lastUpdateTime")

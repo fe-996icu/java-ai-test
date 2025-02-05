@@ -2,6 +2,7 @@ package com.icu.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
+import com.icu.mybatisplus.enums.UserStatus;
 import com.icu.mybatisplus.mapper.AddressMapper;
 import com.icu.mybatisplus.pojo.Address;
 import com.icu.mybatisplus.pojo.User;
@@ -20,7 +21,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         User user = Db.getById(userId, User.class);
 
         // 校验用户状态
-        if (user == null || user.getStatus() != 1) {
+        if (user == null || user.getStatus() != UserStatus.NORMAL) {
             log.error("用户[{}]不存在或状态不正常", userId);
             return null;
         }

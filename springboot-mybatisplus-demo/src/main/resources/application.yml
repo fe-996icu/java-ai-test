@@ -14,6 +14,7 @@ mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler # 枚举类型处理器，新版本mybatisplus可以不指定
   global-config:
     db-config:
       logic-delete-field: deleteFlag # 全局逻辑删除的实体类字段名，字段类型可以是boolean、integer
