@@ -28,6 +28,7 @@ public class UserController {
         log.info("保存用户信息：{}", userDto);
 
         User user = BeanUtil.copyProperties(userDto, User.class);
+        user.setId(null);
         userService.save(user);
 
         log.info("保存用户信息成功：{}", user);
