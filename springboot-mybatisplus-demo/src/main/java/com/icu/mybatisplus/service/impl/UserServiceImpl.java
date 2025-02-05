@@ -7,6 +7,7 @@ import com.icu.mybatisplus.query.UserListQuery;
 import com.icu.mybatisplus.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Override
+    @Transactional // 开启事务
     public Boolean deductBalance(Integer id, Double money) {
         // 查询用户信息
         User user = this.getById(id);
