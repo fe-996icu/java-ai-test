@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.icu.mybatisplus.enums.UserStatus;
 import com.icu.mybatisplus.mapper.UserMapper;
 import com.icu.mybatisplus.pojo.User;
 import com.icu.mybatisplus.service.UserService;
@@ -53,7 +56,7 @@ class SpringbootMybatisplusDemoApplicationTests {
         user.setName("管理员");
         user.setBirthday(LocalDate.parse("1990-01-01"));
         user.setGender(1);
-        user.setStatus(1);
+        user.setStatus(UserStatus.NORMAL);
         user.setCreateTime(LocalDateTime.now());
         user.setLastUpdateTime(LocalDateTime.now());
         user.setDeleteFlag(1);
@@ -74,7 +77,7 @@ class SpringbootMybatisplusDemoApplicationTests {
         user.setName("管理员222");
         user.setBirthday(LocalDate.parse("1990-12-31"));
         user.setGender(1);
-        user.setStatus(0);
+        user.setStatus(UserStatus.NORMAL);
         user.setLastUpdateTime(LocalDateTime.now());
         user.setDeleteFlag(1);
 
@@ -308,5 +311,26 @@ class SpringbootMybatisplusDemoApplicationTests {
         //     insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1)
         //     insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1)
         log.info("批量插入{}条数据，耗时：{}ms", count, (end - start));
+    }
+
+    @Test
+    void testPageUser(){
+        // 设置页码和条数
+        int pageNo = 2, pageSize = 2;
+        // 创建分页对象
+        Page<User> page = new Page<>(pageNo, pageSize);
+        // 设置排序规则，按照balance降序排序，balance相同再按照id升序排序
+        page.addOrder(OrderItem.desc("balance"));
+        page.addOrder(OrderItem.asc("id"));
+        // 执行分页查询，可以不接收返回值，因为Page对象本身就包含了分页查询的结果
+        Page<User> userPage = userMapper.selectPage(page, null);
+
+        System.out.println("----------------------------------------------------------------------------------------------");
+        System.out.println("size：" + userPage.getSize());
+        System.out.println("current：" + userPage.getCurrent());
+        System.out.println("total：" + userPage.getTotal());
+        System.out.println("pages：" + userPage.getPages());
+        for (User user : userPage.getRecords())
+            System.out.println("user：" + user);
     }
 }

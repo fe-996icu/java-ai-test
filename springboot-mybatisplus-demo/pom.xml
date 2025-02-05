@@ -57,6 +57,13 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.10.1</version>
         </dependency>
+        <!-- mybatisplus分页插件，版本号要和mybatisplus保持一致 -->
+        <!-- 因为使用的是新版本mybatisplus，所以分页插件需要单独在引入一次，老版本的不需要单独引入插件 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>3.5.10.1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
         <dependency>
@@ -72,6 +79,8 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>3.0.3</version>
         </dependency>
+
+
 
 
     </dependencies>
