@@ -6,19 +6,27 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.icu.mybatisplus.mapper.UserMapper;
 import com.icu.mybatisplus.pojo.User;
+import com.icu.mybatisplus.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 class SpringbootMybatisplusDemoApplicationTests {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Test
     void contextLoads() {
@@ -235,5 +243,70 @@ class SpringbootMybatisplusDemoApplicationTests {
         int amount = 200;
         // 将wrapper传递到mapper层
         userMapper.updateBalanceByIds(wrapper, amount);
+    }
+
+    @Test
+    void testLoopInsert(){
+        long start = System.currentTimeMillis();
+
+        int count = 100000;
+        for (int i = 0; i < count; i++) {
+            User user = new User();
+            user.setUsername("user" + i);
+            user.setName("name" + i);
+            user.setBirthday(LocalDate.now());
+            user.setGender(1);
+
+            userService.save(user);
+        }
+
+        long end = System.currentTimeMillis();
+
+        // 循环插入100000条数据，耗时：235386ms，耗时约4分钟
+        log.info("循环插入{}条数据，耗时：{}ms", count, (end - start));
+    }
+
+    @Test
+    void testBatchInsert(){
+        long start = System.currentTimeMillis();
+
+        List<User> users = new ArrayList<>();
+        int count = 100000;
+        for (int i = 0; i < count; i++) {
+            User user = new User();
+            user.setUsername("user" + i);
+            user.setName("name" + i);
+            user.setBirthday(LocalDate.now());
+            user.setGender(1);
+            users.add(user);
+
+            // 每1000条执行一次批处理插入
+            if (i % 1000 == 0) {
+                userService.saveBatch(users);
+                users.clear();
+            }
+        }
+
+        // 最后一次不足1000条的，执行一次批处理插入
+        if (!users.isEmpty()) {
+            userService.saveBatch(users);
+            users.clear();
+        }
+
+        long end = System.currentTimeMillis();
+
+        // 批量插入100000条数据，耗时：18984ms，耗时约20秒
+        // 开启rewriteBatchedStatements=true，耗时约6秒
+
+        // rewriteBatchedStatements这个配置是mysql的配置，是jdbc驱动的配置，并不是mybatisplus的配置，从mysql3.1.1版本开始就有了这个配置，默认是关闭的
+        // 开启这个配置后，再执行批处理，会自动将批处理语句合并为一条sql语句执行，从而提高性能
+        // 如：insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1), ('user1', 'name1', '2022-01-01', 1), ('user2', 'name2', '2022-01-01', 1), ('user3', 'name3', '2022-01-01',)
+
+        // 默认情况下，mysql的jdbc驱动是关闭这个配置的，所以需要手动开启
+        // 不开启这个配置，执行批处理，会自动将批处理语句拆分成多条sql语句执行
+        // 如：insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1)
+        //     insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1)
+        //     insert into user (username, name, birthday, gender) values ('user0', 'name0', '2022-01-01', 1)
+        log.info("批量插入{}条数据，耗时：{}ms", count, (end - start));
     }
 }
