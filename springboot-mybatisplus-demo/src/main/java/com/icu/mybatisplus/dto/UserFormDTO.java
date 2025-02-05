@@ -1,5 +1,6 @@
 package com.icu.mybatisplus.dto;
 
+import com.icu.mybatisplus.pojo.UserInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,4 +26,5 @@ public class UserFormDTO {
     private Integer gender;
     @ApiModelProperty("status")
     private Integer status;
+    private UserInfo info;
 }
