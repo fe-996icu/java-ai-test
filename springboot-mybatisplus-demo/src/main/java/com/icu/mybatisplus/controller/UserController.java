@@ -73,6 +73,17 @@ public class UserController {
         return Result.ok(userVo);
     }
 
+    @GetMapping("/{id}/detail")
+    Result<UserVO> getUserAndAddress(@PathVariable Integer id){
+        log.info("查询用户信息：{}", id);
+
+        UserVO user = userService.getUserAndAddress(id);
+
+        log.info("查询用户信息：{}", user);
+
+        return Result.ok(user);
+    }
+
     @ApiOperation(value = "查询所有用户信息")
     @GetMapping()
     Result<List<UserVO>> findAllList(){

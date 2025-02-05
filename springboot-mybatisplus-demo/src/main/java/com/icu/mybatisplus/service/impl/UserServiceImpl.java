@@ -1,10 +1,15 @@
 package com.icu.mybatisplus.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import com.icu.mybatisplus.mapper.UserMapper;
+import com.icu.mybatisplus.pojo.Address;
 import com.icu.mybatisplus.pojo.User;
 import com.icu.mybatisplus.query.UserListQuery;
 import com.icu.mybatisplus.service.UserService;
+import com.icu.mybatisplus.vo.AddressVO;
+import com.icu.mybatisplus.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,5 +79,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .lt(userQuery.getMaxBalance()!=null, User::getBalance, userQuery.getMaxBalance())
                 .list(); // 执行查询
         return list;
+    }
+
+    @Override
+    public UserVO getUserAndAddress(Integer userId) {
+        // 查询用户信息
+        User user = this.getById(userId);
+
+        // 验证用户是否存在，用户状态是否正常
+        if (user == null || user.getStatus() != 1) {
+            log.error("用户不存在或状态不正常");
+            return null;
+        }
+
+        // 查询用户地址列表，使用Db工具类，如果不使用Db工具类，就需要在这个Service注入AddressService，而
+        List<Address> list = Db.lambdaQuery(Address.class).eq(Address::getUserId, userId).list();
+
+        // 合并到UserVO中
+        UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
+        userVO.setAddressList(BeanUtil.copyToList(list, AddressVO.class));
+
+        return userVO;
     }
 }

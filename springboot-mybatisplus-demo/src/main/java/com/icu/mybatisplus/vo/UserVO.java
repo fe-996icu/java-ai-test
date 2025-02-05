@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,4 +37,6 @@ public class UserVO {
     private LocalDateTime lastUpdateTime;
     @ApiModelProperty("deleteFlag")
     private Integer deleteFlag;
+
+    private List<AddressVO> addressList;
 }
