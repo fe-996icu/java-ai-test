@@ -18,4 +18,5 @@ public class Address {
     private String contact;
     private String isDefault;
     private String notes;
+    private Integer deleteFlag;
 }
