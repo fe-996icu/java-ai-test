@@ -13,4 +13,6 @@ public interface UserService extends IService<User> {
     List<User> findList(UserListQuery userQuery);
 
     UserVO getUserAndAddress(Integer userId);
+
+    List<UserVO> getUserAndAddressByUserIds(List<Integer> userIds);
 }

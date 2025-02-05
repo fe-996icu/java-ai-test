@@ -14,7 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -100,5 +103,42 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userVO.setAddressList(BeanUtil.copyToList(list, AddressVO.class));
 
         return userVO;
+    }
+
+    @Override
+    public List<UserVO> getUserAndAddressByUserIds(List<Integer> userIds) {
+        List<User> list = this.lambdaQuery()
+                .in(User::getId, userIds)
+                .eq(User::getStatus, 1) // 直接在 SQL 里过滤，避免 Java 端再筛选
+                .list();
+
+        if (list.isEmpty()) {
+            // 明示这个方法的返回值是一个空列表，让阅读代码的人一眼就能看出
+            return Collections.emptyList();
+        }
+
+        // 有效的 userIds
+        List<Integer> validUserIds = list.stream().map(User::getId).toList(); // 获取查询回来的用户id，并转换成List集合
+        // 获取所有有效用户的地址信息
+        Map<Integer, List<Address>> map = Db.lambdaQuery(Address.class)
+                .in(Address::getUserId, validUserIds) // 获取所有有效用户的地址信息
+                .list() // 查询，返回List集合
+                .stream().collect(Collectors.groupingBy(Address::getUserId)); // 按照userId将地址信息分组
+
+        List<UserVO> userVOS = BeanUtil.copyToList(list, UserVO.class);
+
+        // 循环遍历userVOS，将地址信息赋值给userVO
+        for (UserVO userVO : userVOS) {
+            List<Address> addressList = map.get(userVO.getId());
+            userVO.setAddressList(BeanUtil.copyToList(addressList, AddressVO.class));
+        }
+
+        // 下面这种方式是N+1查询，性能差（即 1 次查询用户，N 次查询地址）
+        // for (UserVO userVO : userVOS) {
+        //     List<Address> list1 = Db.lambdaQuery(Address.class).eq(Address::getUserId, userVO.getId()).list();
+        //     userVO.setAddressList(BeanUtil.copyToList(list1, AddressVO.class));
+        // }
+
+        return userVOS;
     }
 }

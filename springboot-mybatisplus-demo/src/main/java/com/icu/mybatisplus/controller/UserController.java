@@ -84,6 +84,13 @@ public class UserController {
         return Result.ok(user);
     }
 
+    @GetMapping("/detail")
+    Result<List<UserVO>> getUserListAndAddress(@RequestParam List<Integer> userIds){
+        List<UserVO> list = userService.getUserAndAddressByUserIds(userIds);
+
+        return Result.ok(list);
+    }
+
     @ApiOperation(value = "查询所有用户信息")
     @GetMapping()
     Result<List<UserVO>> findAllList(){
