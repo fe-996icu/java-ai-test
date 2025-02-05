@@ -21,6 +21,7 @@ public class User {
     private Double balance;
     private LocalDate birthday;
     private Integer gender;
+    // 使用枚举类型
     private UserStatus status;
     private LocalDateTime createTime;
     private LocalDateTime lastUpdateTime;

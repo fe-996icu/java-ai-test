@@ -31,6 +31,7 @@ public class UserVO {
     @ApiModelProperty("gender")
     private Integer gender;
     @ApiModelProperty("status")
+    // 使用枚举类型，避免返回给前端的时候显示数字，而是显示对应的枚举值
     private UserStatus status;
     @ApiModelProperty("createTime")
     private LocalDateTime createTime;
