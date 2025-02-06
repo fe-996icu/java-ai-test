@@ -149,16 +149,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Page<User> findListPage(UserListQuery query) {
         // 组合分页查询条件
-        Page<User> page = new Page<>(query.getPageNum(), query.getPageSize());
-
-        // 设置排序条件
-        List<OrderItem> orderItems = new ArrayList<>();
-        if(query.getOrderBy() != null){
-            orderItems.add(new OrderItem().setColumn(query.getOrderBy()).setAsc(query.getIsAsc()));
-        }else{
-            orderItems.add(new OrderItem().setColumn("last_update_time").setAsc(false));
-        }
-        page.setOrders(orderItems);
+        Page<User> page = query.toPage();
 
         // 查询
         this.lambdaQuery()

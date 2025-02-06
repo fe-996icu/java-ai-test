@@ -144,19 +144,13 @@ public class UserController {
     @GetMapping("/page")
     Result<PageDTO<UserVO>> findListPage(UserListQuery userQuery){
         Page<User> page = userService.findListPage(userQuery);
+        // PageDTO<UserVO> dto = PageDTO.of(page, UserVO.class);
 
-        // Map<String, Object> map = new HashMap<>();
-        // map.put("total", page.getTotal());
-        // map.put("rows", page.getRecords());
-        // map.put("pageNum", page.getCurrent());
-        // map.put("pageSize", page.getSize());
-        // return Result.ok(map);
-
-        List<UserVO> rows = BeanUtil.copyToList(page.getRecords(), UserVO.class);
-        PageDTO<UserVO> dto = new PageDTO<>();
-        dto.setPages(page.getPages());
-        dto.setRows(rows);
-        dto.setTotal(page.getTotal());
+        PageDTO<UserVO> dto = PageDTO.of(page, user -> {
+            UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
+            userVO.setName("*" + userVO.getName().substring(1));
+            return userVO;
+        });
 
         return Result.ok(dto);
     }
