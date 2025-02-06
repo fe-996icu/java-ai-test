@@ -1,6 +1,8 @@
 package com.icu.mybatisplus.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
 import com.icu.mybatisplus.enums.UserStatus;
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -141,5 +144,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // }
 
         return userVOS;
+    }
+
+    @Override
+    public Page<User> findListPage(UserListQuery query) {
+        // 组合分页查询条件
+        Page<User> page = new Page<>(query.getPageNum(), query.getPageSize());
+
+        // 设置排序条件
+        List<OrderItem> orderItems = new ArrayList<>();
+        if(query.getOrderBy() != null){
+            orderItems.add(new OrderItem().setColumn(query.getOrderBy()).setAsc(query.getIsAsc()));
+        }else{
+            orderItems.add(new OrderItem().setColumn("last_update_time").setAsc(false));
+        }
+        page.setOrders(orderItems);
+
+        // 查询
+        this.lambdaQuery()
+                .like(query.getUsername() != null, User::getUsername, query.getUsername())
+                .eq(query.getStatus() != null, User::getStatus, query.getStatus())
+                .page(page);
+
+        return page;
     }
 }

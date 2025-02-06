@@ -1,13 +1,11 @@
 package com.icu.mybatisplus.query;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDate;
-
+@EqualsAndHashCode(callSuper = true) // 继承父类的equals和hashCode方法
 @Data
-public class UserListQuery {
+public class UserListQuery extends PageQuery {
     private String username;
     private Double minBalance;
     private Double maxBalance;

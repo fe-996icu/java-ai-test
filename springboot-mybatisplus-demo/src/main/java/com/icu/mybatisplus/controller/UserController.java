@@ -1,7 +1,9 @@
 package com.icu.mybatisplus.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.icu.mybatisplus.common.Result;
+import com.icu.mybatisplus.dto.PageDTO;
 import com.icu.mybatisplus.dto.UserFormDTO;
 import com.icu.mybatisplus.pojo.User;
 import com.icu.mybatisplus.query.UserListQuery;
@@ -13,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -134,5 +138,26 @@ public class UserController {
     Result<List<UserVO>> findList(UserListQuery userQuery){
         List<User> list = userService.findList(userQuery);
         return Result.ok(BeanUtil.copyToList(list, UserVO.class));
+    }
+
+    // 分页查询
+    @GetMapping("/page")
+    Result<PageDTO<UserVO>> findListPage(UserListQuery userQuery){
+        Page<User> page = userService.findListPage(userQuery);
+
+        // Map<String, Object> map = new HashMap<>();
+        // map.put("total", page.getTotal());
+        // map.put("rows", page.getRecords());
+        // map.put("pageNum", page.getCurrent());
+        // map.put("pageSize", page.getSize());
+        // return Result.ok(map);
+
+        List<UserVO> rows = BeanUtil.copyToList(page.getRecords(), UserVO.class);
+        PageDTO<UserVO> dto = new PageDTO<>();
+        dto.setPages(page.getPages());
+        dto.setRows(rows);
+        dto.setTotal(page.getTotal());
+
+        return Result.ok(dto);
     }
 }
