@@ -13,8 +13,8 @@ public enum UserStatus {
     FREEZE(2, "冻结"),
     ;
 
+    @JsonValue // 告诉jackson，序列化时，返回给前端的value，因为springboot用的是jackson
     @EnumValue // 告诉MybatisPlus，数据库存的是value
     private final Integer value;
-    @JsonValue // 告诉jackson，序列化时，返回给前端的value，因为springboot用的是jackson
     private final String description;
 }
